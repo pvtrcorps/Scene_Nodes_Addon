@@ -28,6 +28,10 @@ class NODE_OT_read_blend_file(Node):
         layout.prop(self, 'filepath', text="")
 
     def update(self):
+        tree = self.id_data
+        if not getattr(tree, "is_executing", False):
+            return
+
         if self.outputs:
             collections = {
                 'Scenes': bpy.data.scenes,

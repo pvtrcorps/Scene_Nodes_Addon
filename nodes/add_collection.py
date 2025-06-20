@@ -15,6 +15,10 @@ class NODE_OT_add_collection(Node):
         self.outputs.new('CollectionNodeSocketType', "Collection")
 
     def update(self):
+        tree = self.id_data
+        if not getattr(tree, "is_executing", False):
+            return
+
         output = self.outputs.get("Collection")
         if not output:
             return

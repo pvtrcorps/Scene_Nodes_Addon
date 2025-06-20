@@ -20,11 +20,14 @@ class NODE_OT_create_scene(Node):
 
 
     def update(self):
+        tree = self.id_data
+        if not getattr(tree, "is_executing", False):
+            return
+
         output = self.outputs.get("Scene")
         if not output:
             return
 
-        tree = self.id_data
         scene = getattr(tree, "dynamic_scene", None)
 
         name_socket = self.inputs.get("Name")

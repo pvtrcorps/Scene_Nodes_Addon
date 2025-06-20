@@ -16,6 +16,10 @@ class NODE_OT_set_material(Node):
         self.outputs.new('ObjectNodeSocketType', "Object")
 
     def update(self):
+        tree = self.id_data
+        if not getattr(tree, "is_executing", False):
+            return
+
         obj = get_socket_value(self.inputs.get("Object"), 'object')
         mat = get_socket_value(self.inputs.get("Material"), 'material')
         if obj:
