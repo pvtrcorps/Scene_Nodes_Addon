@@ -7,11 +7,15 @@ from ..node_tree import hash_inputs, get_socket_value
 class NODE_OT_set_world(Node):
     bl_idname = 'NODE_OT_set_world'
     bl_label = 'Set World'
-    bl_icon = 'WORLD_DATA'
+    bl_icon = 'RADIOBUT_OFF'
 
     def init(self, context):
         self.inputs.new('SceneNodeSocketType', "Scene")
         self.inputs.new('WorldNodeSocketType', "World")
+
+    def draw_buttons(self, context, layout):
+        from ..executor import draw_execute_button
+        draw_execute_button(self, layout)
 
     def update(self):
         scene = get_socket_value(self.inputs.get("Scene"), 'scene')

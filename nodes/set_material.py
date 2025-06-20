@@ -8,12 +8,16 @@ from ..user_edits import apply_user_edits
 class NODE_OT_set_material(Node):
     bl_idname = 'NODE_OT_set_material'
     bl_label = 'Set Material'
-    bl_icon = 'MATERIAL'
+    bl_icon = 'RADIOBUT_OFF'
 
     def init(self, context):
         self.inputs.new('ObjectNodeSocketType', "Object")
         self.inputs.new('MaterialNodeSocketType', "Material")
         self.outputs.new('ObjectNodeSocketType', "Object")
+
+    def draw_buttons(self, context, layout):
+        from ..executor import draw_execute_button
+        draw_execute_button(self, layout)
 
     def update(self):
         obj = get_socket_value(self.inputs.get("Object"), 'object')

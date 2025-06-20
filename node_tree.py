@@ -128,6 +128,8 @@ class SCENE_NODES_TREE(NodeTree):
     bl_label = 'Scene Nodes'
     bl_icon = 'SCENE_DATA'
 
+    active_node_name: bpy.props.StringProperty(name="Active Node", default="")
+
     @classmethod
     def poll(cls, context):
         return True

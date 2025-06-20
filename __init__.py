@@ -30,6 +30,7 @@ from .nodes.render_scene import NODE_OT_render_scene
 from .nodes.add_collection import NODE_OT_add_collection
 from .nodes.set_material import NODE_OT_set_material
 from .nodes.set_world import NODE_OT_set_world
+from .executor import SCENE_OT_execute_to_node
 
 classes = (
     SceneNodeSocket,
@@ -44,6 +45,7 @@ classes = (
     NODE_OT_add_collection,
     NODE_OT_set_material,
     NODE_OT_set_world,
+    SCENE_OT_execute_to_node,
 )
 
 # node categories for the Add menu
