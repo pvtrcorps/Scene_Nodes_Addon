@@ -19,6 +19,7 @@ Once enabled, open the *Geometry Node Editor* and switch the tree type to **Scen
 - **Set World** — assign a world to a scene.
 - **Read Blend File** — load datablock names from an external blend file.
 - **Input Nodes** — provide basic values (String, Bool, Float, Integer, Vector, Object, Material, World).
+- **List Nodes** — work with semicolon separated string lists (Length, Item by Index, Find Item).
 
 These nodes are registered under the *Scene Nodes* category.
 

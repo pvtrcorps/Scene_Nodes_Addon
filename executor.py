@@ -48,6 +48,10 @@ def update_node_icons(tree):
     active = getattr(tree, 'active_node_name', '')
     for node in tree.nodes:
         node.bl_icon = 'RADIOBUT_ON' if node.name == active else 'RADIOBUT_OFF'
+    for window in bpy.context.window_manager.windows:
+        for area in window.screen.areas:
+            if area.type == 'NODE_EDITOR':
+                area.tag_redraw()
 
 
 class SCENE_OT_execute_to_node(Operator):
