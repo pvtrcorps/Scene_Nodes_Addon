@@ -12,6 +12,7 @@ class NODE_OT_set_world(Node):
     def init(self, context):
         self.inputs.new('SceneNodeSocketType', "Scene")
         self.inputs.new('WorldNodeSocketType', "World")
+        self.outputs.new('SceneNodeSocketType', "Scene")
 
     def draw_buttons(self, context, layout):
         from ..executor import draw_execute_button
@@ -22,6 +23,8 @@ class NODE_OT_set_world(Node):
         world = get_socket_value(self.inputs.get("World"), 'world')
         if scene and world:
             scene.world = world
+        if scene:
+            self.outputs["Scene"].scene = scene
         self.node_hash = hash_inputs(scene, world)
 
 

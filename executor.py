@@ -48,7 +48,9 @@ def draw_execute_button(node, layout):
     tree = node.id_data
     active = getattr(tree, 'active_node_name', '')
     icon = 'RADIOBUT_ON' if node.name == active else 'RADIOBUT_OFF'
-    op = layout.operator('scene_nodes.execute_to_node', text='', icon=icon, emboss=False)
+    row = layout.row(align=True)
+    row.alignment = 'RIGHT'
+    op = row.operator('scene_nodes.execute_to_node', text='', icon=icon, emboss=False)
     op.node_name = node.name
 
 
