@@ -15,10 +15,6 @@ class NODE_OT_set_material(Node):
         self.inputs.new('MaterialNodeSocketType', "Material")
         self.outputs.new('ObjectNodeSocketType', "Object")
 
-    def draw_buttons(self, context, layout):
-        from ..executor import draw_execute_button
-        draw_execute_button(self, layout)
-
     def update(self):
         obj = get_socket_value(self.inputs.get("Object"), 'object')
         mat = get_socket_value(self.inputs.get("Material"), 'material')

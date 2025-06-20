@@ -19,9 +19,10 @@ These nodes are registered under the *Scene Nodes* category.
 
 ### Manual Execution
 
-Each node header displays a small circle icon. Clicking this icon evaluates the
-graph up to the clicked node using a simple dependency solver. The circle for
-the most recently executed node is filled to indicate the active scene state.
+Only nodes that operate on scenes display a small circle icon in their header.
+Clicking this icon evaluates the graph up to the clicked node using a simple
+dependency solver. The circle for the most recently executed node is filled to
+indicate the active scene state.
 
 ## User Edits
 
