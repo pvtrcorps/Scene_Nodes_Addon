@@ -54,7 +54,10 @@ class NODE_OT_read_blend_file(Node):
                             data.remove(datablock)
                     except Exception:
                         pass
-                sock.items.clear()
+                if isinstance(sock.items, list):
+                    sock.items.clear()
+                else:
+                    sock.items = []
 
         path = None
         path_socket = self.inputs.get('File Path')
