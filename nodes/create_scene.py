@@ -11,26 +11,27 @@ class NODE_OT_create_scene(Node):
     def init(self, context):
         self.outputs.new('SceneNodeSocketType', "Scene")
 
-    def draw_buttons(self, context, layout):
-        from ..executor import draw_execute_button
-        draw_execute_button(self, layout)
+
 
     def update(self):
         output = self.outputs.get("Scene")
         if not output:
             return
 
-        base_name = "Scene"
-        name = base_name
-        index = 1
-        # ensure unique scene name
-        while name in bpy.data.scenes:
-            name = f"{base_name}.{index:03d}"
-            index += 1
+        tree = self.id_data
+        scene = getattr(tree, "dynamic_scene", None)
 
-        new_scene = bpy.data.scenes.new(name)
-        # store the created scene on the socket so it can be passed to other nodes
-        output.scene = new_scene
+        if scene is None or scene.name not in bpy.data.scenes:
+            base_name = "Scene"
+            name = base_name
+            index = 1
+            while name in bpy.data.scenes:
+                name = f"{base_name}.{index:03d}"
+                index += 1
+            scene = bpy.data.scenes.new(name)
+            tree.dynamic_scene = scene
+
+        output.scene = scene
 
 def register():
     bpy.utils.register_class(NODE_OT_create_scene)

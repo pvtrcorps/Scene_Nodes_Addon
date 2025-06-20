@@ -11,9 +11,7 @@ class NODE_OT_render_scene(Node):
     def init(self, context):
         self.inputs.new('SceneNodeSocketType', "Scene")
 
-    def draw_buttons(self, context, layout):
-        from ..executor import draw_execute_button
-        draw_execute_button(self, layout)
+
 
     def update(self):
         input_socket = self.inputs.get("Scene")

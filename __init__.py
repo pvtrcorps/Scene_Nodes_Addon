@@ -30,6 +30,15 @@ from .nodes.render_scene import NODE_OT_render_scene
 from .nodes.add_collection import NODE_OT_add_collection
 from .nodes.set_material import NODE_OT_set_material
 from .nodes.set_world import NODE_OT_set_world
+from .nodes.input_string import NODE_OT_input_string
+from .nodes.input_bool import NODE_OT_input_bool
+from .nodes.input_float import NODE_OT_input_float
+from .nodes.input_integer import NODE_OT_input_integer
+from .nodes.input_vector import NODE_OT_input_vector
+from .nodes.input_material import NODE_OT_input_material
+from .nodes.input_world import NODE_OT_input_world
+from .nodes.input_object import NODE_OT_input_object
+from .nodes.read_blend_file import NODE_OT_read_blend_file
 from .executor import SCENE_OT_execute_to_node
 from .handlers import register_handlers, unregister_handlers
 
@@ -46,6 +55,15 @@ classes = (
     NODE_OT_add_collection,
     NODE_OT_set_material,
     NODE_OT_set_world,
+    NODE_OT_input_string,
+    NODE_OT_input_bool,
+    NODE_OT_input_float,
+    NODE_OT_input_integer,
+    NODE_OT_input_vector,
+    NODE_OT_input_material,
+    NODE_OT_input_world,
+    NODE_OT_input_object,
+    NODE_OT_read_blend_file,
     SCENE_OT_execute_to_node,
 )
 
@@ -62,6 +80,15 @@ node_categories = [
         NodeItem(NODE_OT_add_collection.bl_idname),
         NodeItem(NODE_OT_set_material.bl_idname),
         NodeItem(NODE_OT_set_world.bl_idname),
+        NodeItem(NODE_OT_input_string.bl_idname),
+        NodeItem(NODE_OT_input_bool.bl_idname),
+        NodeItem(NODE_OT_input_float.bl_idname),
+        NodeItem(NODE_OT_input_integer.bl_idname),
+        NodeItem(NODE_OT_input_vector.bl_idname),
+        NodeItem(NODE_OT_input_material.bl_idname),
+        NodeItem(NODE_OT_input_world.bl_idname),
+        NodeItem(NODE_OT_input_object.bl_idname),
+        NodeItem(NODE_OT_read_blend_file.bl_idname),
     ]),
 ]
 

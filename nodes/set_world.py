@@ -14,9 +14,7 @@ class NODE_OT_set_world(Node):
         self.inputs.new('WorldNodeSocketType', "World")
         self.outputs.new('SceneNodeSocketType', "Scene")
 
-    def draw_buttons(self, context, layout):
-        from ..executor import draw_execute_button
-        draw_execute_button(self, layout)
+
 
     def update(self):
         scene = get_socket_value(self.inputs.get("Scene"), 'scene')
