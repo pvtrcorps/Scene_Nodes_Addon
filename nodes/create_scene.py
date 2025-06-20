@@ -6,10 +6,14 @@ from ..node_tree import SceneNodeSocket
 class NODE_OT_create_scene(Node):
     bl_idname = 'NODE_OT_create_scene'
     bl_label = 'Create Scene'
-    bl_icon = 'SCENE_DATA'
+    bl_icon = 'RADIOBUT_OFF'
 
     def init(self, context):
         self.outputs.new('SceneNodeSocketType', "Scene")
+
+    def draw_buttons(self, context, layout):
+        from ..executor import draw_execute_button
+        draw_execute_button(self, layout)
 
     def update(self):
         output = self.outputs.get("Scene")

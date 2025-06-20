@@ -17,6 +17,12 @@ Once enabled, open the *Geometry Node Editor* and switch the tree type to **Scen
 
 These nodes are registered under the *Scene Nodes* category.
 
+### Manual Execution
+
+Each node header displays a small circle icon. Clicking this icon evaluates the
+graph up to the clicked node using a simple dependency solver. The circle for
+the most recently executed node is filled to indicate the active scene state.
+
 ## User Edits
 
 Object transforms or other adjustments made manually after evaluating the node tree can be stored so they persist across updates. Use the helper functions in `user_edits.py` to manage these values:

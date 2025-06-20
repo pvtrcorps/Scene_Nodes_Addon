@@ -7,10 +7,14 @@ from ..node_tree import hash_inputs
 class NODE_OT_add_collection(Node):
     bl_idname = 'NODE_OT_add_collection'
     bl_label = 'Add Collection'
-    bl_icon = 'OUTLINER_COLLECTION'
+    bl_icon = 'RADIOBUT_OFF'
 
     def init(self, context):
         self.outputs.new('CollectionNodeSocketType', "Collection")
+
+    def draw_buttons(self, context, layout):
+        from ..executor import draw_execute_button
+        draw_execute_button(self, layout)
 
     def update(self):
         output = self.outputs.get("Collection")
