@@ -31,6 +31,7 @@ from .nodes.add_collection import NODE_OT_add_collection
 from .nodes.set_material import NODE_OT_set_material
 from .nodes.set_world import NODE_OT_set_world
 from .executor import SCENE_OT_execute_to_node
+from .handlers import register_handlers, unregister_handlers
 
 classes = (
     SceneNodeSocket,
@@ -69,8 +70,10 @@ def register():
         bpy.utils.register_class(cls)
     bpy.types.Scene.scene_nodes_tree = bpy.props.PointerProperty(type=SCENE_NODES_TREE)
     register_node_categories('SCENE_NODES', node_categories)
+    register_handlers()
 
 def unregister():
+    unregister_handlers()
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
     del bpy.types.Scene.scene_nodes_tree

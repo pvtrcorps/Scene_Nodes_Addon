@@ -38,3 +38,5 @@ apply_object_transform(obj)
 ```
 
 Nodes may call `apply_object_transform` (or the convenience wrapper `apply_user_edits`) when they need to preserve user tweaks while re-evaluating the graph.
+
+The addon also registers a handler on Blender's dependency graph updates that automatically calls `record_object_transform` whenever an object is moved, rotated or scaled. Transform values are stored for each node so manual adjustments persist across evaluations.
