@@ -43,15 +43,11 @@ import bpy
 from bpy.types import Operator
 
 
-def draw_execute_button(node, layout):
-    """Utility to draw the execution button on nodes."""
-    tree = node.id_data
+def update_node_icons(tree):
+    """Update header icons on all nodes to reflect execution state."""
     active = getattr(tree, 'active_node_name', '')
-    icon = 'RADIOBUT_ON' if node.name == active else 'RADIOBUT_OFF'
-    row = layout.row(align=True)
-    row.alignment = 'RIGHT'
-    op = row.operator('scene_nodes.execute_to_node', text='', icon=icon, emboss=False)
-    op.node_name = node.name
+    for node in tree.nodes:
+        node.bl_icon = 'RADIOBUT_ON' if node.name == active else 'RADIOBUT_OFF'
 
 
 class SCENE_OT_execute_to_node(Operator):
@@ -73,6 +69,7 @@ class SCENE_OT_execute_to_node(Operator):
         executor = NodeExecutor(tree)
         executor.execute_until(node)
         tree.active_node_name = node.name
+        update_node_icons(tree)
         return {'FINISHED'}
 
 

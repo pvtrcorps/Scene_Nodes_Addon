@@ -12,8 +12,13 @@ This is a simple example addon that demonstrates a basic node tree for procedura
 
 Once enabled, open the *Geometry Node Editor* and switch the tree type to **Scene Nodes**. Use the **Add** menu to access the custom nodes:
 
-- **Create Scene** — outputs a new scene.
+- **Create Scene** — outputs a dynamic scene reused across executions.
 - **Render Scene** — takes a scene input and renders it.
+- **Add Collection** — creates a new collection datablock.
+- **Set Material** — assign a material to an object.
+- **Set World** — assign a world to a scene.
+- **Read Blend File** — load datablock names from an external blend file.
+- **Input Nodes** — provide basic values (String, Bool, Float, Integer, Vector, Object, Material, World).
 
 These nodes are registered under the *Scene Nodes* category.
 
