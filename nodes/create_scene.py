@@ -8,8 +8,14 @@ class NODE_OT_create_scene(Node):
     bl_label = 'Create Scene'
     bl_icon = 'RADIOBUT_OFF'
 
+    scene_name: bpy.props.StringProperty(name="Scene Name", default="")
+
     def init(self, context):
+        self.inputs.new('NodeSocketString', "Name")
         self.outputs.new('SceneNodeSocketType', "Scene")
+
+    def draw_buttons(self, context, layout):
+        layout.prop(self, 'scene_name', text="")
 
 
 
@@ -21,15 +27,33 @@ class NODE_OT_create_scene(Node):
         tree = self.id_data
         scene = getattr(tree, "dynamic_scene", None)
 
+        name_socket = self.inputs.get("Name")
+        name = None
+        if name_socket:
+            if name_socket.is_linked:
+                for link in name_socket.links:
+                    value = getattr(link.from_socket, "default_value", None)
+                    if value:
+                        name = value
+                        break
+            else:
+                name = getattr(name_socket, "default_value", None)
+
+        if not name:
+            name = self.scene_name or "Scene"
+
         if scene is None or scene.name not in bpy.data.scenes:
-            base_name = "Scene"
-            name = base_name
+            base_name = name
+            unique = base_name
             index = 1
-            while name in bpy.data.scenes:
-                name = f"{base_name}.{index:03d}"
+            while unique in bpy.data.scenes:
+                unique = f"{base_name}.{index:03d}"
                 index += 1
-            scene = bpy.data.scenes.new(name)
+            scene = bpy.data.scenes.new(unique)
             tree.dynamic_scene = scene
+        else:
+            if scene.name != name and name not in bpy.data.scenes:
+                scene.name = name
 
         output.scene = scene
 

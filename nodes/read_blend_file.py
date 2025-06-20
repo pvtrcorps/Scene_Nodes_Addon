@@ -10,6 +10,7 @@ class NODE_OT_read_blend_file(Node):
     filepath: bpy.props.StringProperty(name="File Path", subtype='FILE_PATH')
 
     def init(self, context):
+        self.inputs.new('NodeSocketString', 'File Path')
         self.outputs.new('NodeSocketString', 'Scenes')
         self.outputs.new('NodeSocketString', 'Objects')
         self.outputs.new('NodeSocketString', 'Materials')
@@ -19,10 +20,23 @@ class NODE_OT_read_blend_file(Node):
         layout.prop(self, 'filepath', text="")
 
     def update(self):
-        if not self.filepath:
+        path = None
+        path_socket = self.inputs.get('File Path')
+        if path_socket:
+            if path_socket.is_linked:
+                for link in path_socket.links:
+                    value = getattr(link.from_socket, 'default_value', None)
+                    if value:
+                        path = value
+                        break
+            else:
+                path = getattr(path_socket, 'default_value', None)
+        if not path:
+            path = self.filepath
+        if not path:
             return
         try:
-            with bpy.data.libraries.load(self.filepath, link=False) as (data_from, _):
+            with bpy.data.libraries.load(path, link=False) as (data_from, _):
                 scenes = ';'.join(data_from.scenes)
                 objects = ';'.join(data_from.objects)
                 materials = ';'.join(data_from.materials)
