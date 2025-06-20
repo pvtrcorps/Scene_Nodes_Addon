@@ -16,3 +16,19 @@ Once enabled, open the *Geometry Node Editor* and switch the tree type to **Scen
 - **Render Scene** — takes a scene input and renders it.
 
 These nodes are registered under the *Scene Nodes* category.
+
+## User Edits
+
+Object transforms or other adjustments made manually after evaluating the node tree can be stored so they persist across updates. Use the helper functions in `user_edits.py` to manage these values:
+
+```python
+from .user_edits import record_object_transform, apply_object_transform
+
+# After editing an object
+record_object_transform(obj)
+
+# Before a node overwrites an object transform
+apply_object_transform(obj)
+```
+
+Nodes may call `apply_object_transform` (or the convenience wrapper `apply_user_edits`) when they need to preserve user tweaks while re-evaluating the graph.
