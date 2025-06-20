@@ -12,8 +12,21 @@ class NODE_OT_create_scene(Node):
         self.outputs.new('SceneNodeSocketType', "Scene")
 
     def update(self):
-        # placeholder: create a new scene on execution
-        pass
+        output = self.outputs.get("Scene")
+        if not output:
+            return
+
+        base_name = "Scene"
+        name = base_name
+        index = 1
+        # ensure unique scene name
+        while name in bpy.data.scenes:
+            name = f"{base_name}.{index:03d}"
+            index += 1
+
+        new_scene = bpy.data.scenes.new(name)
+        # store the created scene on the socket so it can be passed to other nodes
+        output.scene = new_scene
 
 def register():
     bpy.utils.register_class(NODE_OT_create_scene)

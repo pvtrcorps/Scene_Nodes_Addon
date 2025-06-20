@@ -1,9 +1,15 @@
 import bpy
 from bpy.types import NodeTree, Node, NodeSocket
 
+
+def _new_scene_property():
+    """Pointer property for storing a Blender Scene."""
+    return bpy.props.PointerProperty(name="Scene", type=bpy.types.Scene)
+
 class SceneNodeSocket(NodeSocket):
     bl_idname = 'SceneNodeSocketType'
     bl_label = 'Scene Socket'
+    scene: _new_scene_property()
     # socket color
     def draw(self, context, layout, node, text):
         layout.label(text=text)
