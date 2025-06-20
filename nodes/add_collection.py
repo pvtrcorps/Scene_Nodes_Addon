@@ -28,10 +28,3 @@ class NODE_OT_add_collection(Node):
         output.collection = new_col
         self.node_hash = hash_inputs(new_col)
 
-
-def register():
-    bpy.utils.register_class(NODE_OT_add_collection)
-
-
-def unregister():
-    bpy.utils.unregister_class(NODE_OT_add_collection)

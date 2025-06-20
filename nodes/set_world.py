@@ -25,10 +25,3 @@ class NODE_OT_set_world(Node):
             self.outputs["Scene"].scene = scene
         self.node_hash = hash_inputs(scene, world)
 
-
-def register():
-    bpy.utils.register_class(NODE_OT_set_world)
-
-
-def unregister():
-    bpy.utils.unregister_class(NODE_OT_set_world)

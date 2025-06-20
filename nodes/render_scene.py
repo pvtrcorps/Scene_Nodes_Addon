@@ -42,9 +42,3 @@ class NODE_OT_render_scene(Node):
             bpy.ops.render.render()
         finally:
             window.scene = current_scene
-
-def register():
-    bpy.utils.register_class(NODE_OT_render_scene)
-
-def unregister():
-    bpy.utils.unregister_class(NODE_OT_render_scene)
