@@ -14,6 +14,10 @@ class NODE_OT_render_scene(Node):
 
 
     def update(self):
+        tree = self.id_data
+        if not getattr(tree, "is_executing", False):
+            return
+
         input_socket = self.inputs.get("Scene")
         if not input_socket:
             return

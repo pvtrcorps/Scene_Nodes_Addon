@@ -17,6 +17,10 @@ class NODE_OT_set_world(Node):
 
 
     def update(self):
+        tree = self.id_data
+        if not getattr(tree, "is_executing", False):
+            return
+
         scene = get_socket_value(self.inputs.get("Scene"), 'scene')
         world = get_socket_value(self.inputs.get("World"), 'world')
         if scene and world:

@@ -29,14 +29,19 @@ class NodeExecutor:
 
     def execute_until(self, target_node=None):
         """Execute nodes in topological order up to ``target_node``."""
-        order = self._topological_order()
-        for node in order:
-            if hasattr(node, 'evaluate'):
-                node.evaluate()
-            elif hasattr(node, 'update'):
-                node.update()
-            if target_node and node == target_node:
-                break
+        tree = self.node_tree
+        tree.is_executing = True
+        try:
+            order = self._topological_order()
+            for node in order:
+                if hasattr(node, 'evaluate'):
+                    node.evaluate()
+                elif hasattr(node, 'update'):
+                    node.update()
+                if target_node and node == target_node:
+                    break
+        finally:
+            tree.is_executing = False
 
 
 import bpy
