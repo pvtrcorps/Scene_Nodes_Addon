@@ -129,9 +129,12 @@ def get_socket_value(socket, attribute):
         for link in socket.links:
             source = link.from_socket
             value = getattr(source, attribute, None)
-            if value is not None:
+            if value is not None and not callable(value):
                 return value
-    return getattr(socket, attribute, None)
+    value = getattr(socket, attribute, None)
+    if callable(value):
+        return None
+    return value
 
 
 def hash_inputs(*values):

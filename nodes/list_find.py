@@ -10,6 +10,7 @@ class NODE_OT_list_find(Node):
     def init(self, context):
         sock = self.inputs.new('ListNodeSocketType', 'List')
         sock.display_shape = 'SQUARE'
+        sock.items = []
         self.inputs.new('NodeSocketString', 'Name')
         self.outputs.new('SceneNodeSocketType', 'Scene')
         self.outputs.new('ObjectNodeSocketType', 'Object')
@@ -19,7 +20,9 @@ class NODE_OT_list_find(Node):
 
     def update(self):
         list_socket = self.inputs.get('List')
-        items = get_socket_value(list_socket, 'items')
+        items = get_socket_value(list_socket, 'items') or []
+        if callable(items):
+            items = []
         item_type = getattr(list_socket, 'items_type', '')
         name = get_socket_value(self.inputs.get('Name'), 'default_value') or ''
         idx = -1
