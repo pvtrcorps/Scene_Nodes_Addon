@@ -11,10 +11,10 @@ class NODE_OT_read_blend_file(Node):
 
     def init(self, context):
         self.inputs.new('NodeSocketString', 'File Path')
-        self.outputs.new('NodeSocketString', 'Scenes')
-        self.outputs.new('NodeSocketString', 'Objects')
-        self.outputs.new('NodeSocketString', 'Materials')
-        self.outputs.new('NodeSocketString', 'Worlds')
+        self.outputs.new('ListNodeSocketType', 'Scenes')
+        self.outputs.new('ListNodeSocketType', 'Objects')
+        self.outputs.new('ListNodeSocketType', 'Materials')
+        self.outputs.new('ListNodeSocketType', 'Worlds')
 
     def draw_buttons(self, context, layout):
         layout.prop(self, 'filepath', text="")
@@ -36,15 +36,24 @@ class NODE_OT_read_blend_file(Node):
         if not path:
             return
         try:
-            with bpy.data.libraries.load(path, link=False) as (data_from, _):
-                scenes = ';'.join(data_from.scenes)
-                objects = ';'.join(data_from.objects)
-                materials = ';'.join(data_from.materials)
-                worlds = ';'.join(data_from.worlds)
+            with bpy.data.libraries.load(path, link=False) as (data_from, data_to):
+                data_to.scenes = list(data_from.scenes)
+                data_to.objects = list(data_from.objects)
+                data_to.materials = list(data_from.materials)
+                data_to.worlds = list(data_from.worlds)
+            scenes = list(data_to.scenes)
+            objects = list(data_to.objects)
+            materials = list(data_to.materials)
+            worlds = list(data_to.worlds)
         except Exception:
-            scenes = objects = materials = worlds = ''
+            scenes = objects = materials = worlds = []
         if self.outputs:
-            self.outputs['Scenes'].default_value = scenes
-            self.outputs['Objects'].default_value = objects
-            self.outputs['Materials'].default_value = materials
-            self.outputs['Worlds'].default_value = worlds
+            out = self.outputs
+            out['Scenes'].items = scenes
+            out['Scenes'].items_type = 'SCENE'
+            out['Objects'].items = objects
+            out['Objects'].items_type = 'OBJECT'
+            out['Materials'].items = materials
+            out['Materials'].items_type = 'MATERIAL'
+            out['Worlds'].items = worlds
+            out['Worlds'].items_type = 'WORLD'

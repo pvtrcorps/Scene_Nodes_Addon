@@ -23,6 +23,7 @@ from .node_tree import (
     CameraNodeSocket,
     MaterialNodeSocket,
     WorldNodeSocket,
+    ListNodeSocket,
     SCENE_NODES_TREE,
 )
 from .nodes.create_scene import NODE_OT_create_scene
@@ -52,6 +53,7 @@ classes = (
     CameraNodeSocket,
     MaterialNodeSocket,
     WorldNodeSocket,
+    ListNodeSocket,
     SCENE_NODES_TREE,
     NODE_OT_create_scene,
     NODE_OT_render_scene,
