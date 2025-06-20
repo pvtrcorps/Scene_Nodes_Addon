@@ -121,6 +121,27 @@ class ListNodeSocket(NodeSocket):
         return colors.get(self.items_type, (0.8, 0.8, 0.1, 1.0))
 
 
+class ImportTypeNodeSocket(NodeSocket):
+    """Socket to choose how libraries are imported."""
+    bl_idname = 'ImportTypeNodeSocketType'
+    bl_label = 'Import Type'
+
+    import_type: bpy.props.EnumProperty(
+        name="Import Type",
+        items=[
+            ('APPEND', 'Append', 'Append data blocks'),
+            ('LINK', 'Link', 'Link data blocks'),
+        ],
+        default='APPEND',
+    )
+
+    def draw(self, context, layout, node, text):
+        layout.prop(self, 'import_type', text=text)
+
+    def draw_color(self, context, node):
+        return (0.5, 0.5, 0.8, 1.0)
+
+
 def get_socket_value(socket, attribute):
     """Retrieve the value from a socket, considering links."""
     if not socket:

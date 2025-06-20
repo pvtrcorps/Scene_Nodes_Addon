@@ -24,6 +24,7 @@ from .node_tree import (
     MaterialNodeSocket,
     WorldNodeSocket,
     ListNodeSocket,
+    ImportTypeNodeSocket,
     SCENE_NODES_TREE,
 )
 from .nodes.create_scene import NODE_OT_create_scene
@@ -54,6 +55,7 @@ classes = (
     MaterialNodeSocket,
     WorldNodeSocket,
     ListNodeSocket,
+    ImportTypeNodeSocket,
     SCENE_NODES_TREE,
     NODE_OT_create_scene,
     NODE_OT_render_scene,
