@@ -10,11 +10,12 @@ bl_info = {
 }
 
 import bpy
-from .node_tree import SCENE_NODES_TREE
+from .node_tree import SceneNodeSocket, SCENE_NODES_TREE
 from .nodes.create_scene import NODE_OT_create_scene
 from .nodes.render_scene import NODE_OT_render_scene
 
 classes = (
+    SceneNodeSocket,
     SCENE_NODES_TREE,
     NODE_OT_create_scene,
     NODE_OT_render_scene,
