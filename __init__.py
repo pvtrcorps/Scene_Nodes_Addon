@@ -16,15 +16,34 @@ from nodeitems_utils import (
     register_node_categories,
     unregister_node_categories,
 )
-from .node_tree import SceneNodeSocket, SCENE_NODES_TREE
+from .node_tree import (
+    SceneNodeSocket,
+    CollectionNodeSocket,
+    ObjectNodeSocket,
+    CameraNodeSocket,
+    MaterialNodeSocket,
+    WorldNodeSocket,
+    SCENE_NODES_TREE,
+)
 from .nodes.create_scene import NODE_OT_create_scene
 from .nodes.render_scene import NODE_OT_render_scene
+from .nodes.add_collection import NODE_OT_add_collection
+from .nodes.set_material import NODE_OT_set_material
+from .nodes.set_world import NODE_OT_set_world
 
 classes = (
     SceneNodeSocket,
+    CollectionNodeSocket,
+    ObjectNodeSocket,
+    CameraNodeSocket,
+    MaterialNodeSocket,
+    WorldNodeSocket,
     SCENE_NODES_TREE,
     NODE_OT_create_scene,
     NODE_OT_render_scene,
+    NODE_OT_add_collection,
+    NODE_OT_set_material,
+    NODE_OT_set_world,
 )
 
 # node categories for the Add menu
@@ -37,6 +56,9 @@ node_categories = [
     SceneNodeCategory('SCENE_NODES', 'Scene Nodes', items=[
         NodeItem(NODE_OT_create_scene.bl_idname),
         NodeItem(NODE_OT_render_scene.bl_idname),
+        NodeItem(NODE_OT_add_collection.bl_idname),
+        NodeItem(NODE_OT_set_material.bl_idname),
+        NodeItem(NODE_OT_set_world.bl_idname),
     ]),
 ]
 
