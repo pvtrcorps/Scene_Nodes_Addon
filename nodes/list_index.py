@@ -16,8 +16,9 @@ class NODE_OT_list_index(Node):
         self.outputs.new('WorldNodeSocketType', 'World')
 
     def update(self):
-        items = get_socket_value(self.inputs.get('List'), 'items') or []
-        item_type = getattr(self.inputs.get('List'), 'items_type', '')
+        list_socket = self.inputs.get('List')
+        items = get_socket_value(list_socket, 'items')
+        item_type = getattr(list_socket, 'items_type', '')
         index = get_socket_value(self.inputs.get('Index'), 'default_value')
         try:
             idx = int(index)
