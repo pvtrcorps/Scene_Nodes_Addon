@@ -11,10 +11,10 @@ class NODE_OT_read_blend_file(Node):
 
     def init(self, context):
         self.inputs.new('NodeSocketString', 'File Path')
-        self.outputs.new('ListNodeSocketType', 'Scenes')
-        self.outputs.new('ListNodeSocketType', 'Objects')
-        self.outputs.new('ListNodeSocketType', 'Materials')
-        self.outputs.new('ListNodeSocketType', 'Worlds')
+        self.outputs.new('ListNodeSocketType', 'Scenes').display_shape = 'SQUARE'
+        self.outputs.new('ListNodeSocketType', 'Objects').display_shape = 'SQUARE'
+        self.outputs.new('ListNodeSocketType', 'Materials').display_shape = 'SQUARE'
+        self.outputs.new('ListNodeSocketType', 'Worlds').display_shape = 'SQUARE'
 
     def draw_buttons(self, context, layout):
         layout.prop(self, 'filepath', text="")

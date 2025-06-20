@@ -104,11 +104,22 @@ class ListNodeSocket(NodeSocket):
     bl_label = 'List Socket'
     items_type: bpy.props.StringProperty(name="Items Type", default="")
 
+    def __init__(self):
+        # visually differentiate list sockets from single datablock sockets
+        self.display_shape = 'SQUARE'
+
     def draw(self, context, layout, node, text):
         layout.label(text=text)
 
     def draw_color(self, context, node):
-        return (0.8, 0.8, 0.1, 1.0)
+        colors = {
+            'SCENE': (0.6, 0.8, 0.2, 1.0),
+            'OBJECT': (0.4, 0.6, 0.8, 1.0),
+            'MATERIAL': (0.9, 0.5, 0.9, 1.0),
+            'WORLD': (0.2, 0.4, 0.8, 1.0),
+            'COLLECTION': (0.8, 0.4, 0.1, 1.0),
+        }
+        return colors.get(self.items_type, (0.8, 0.8, 0.1, 1.0))
 
 
 def get_socket_value(socket, attribute):
