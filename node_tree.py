@@ -98,6 +98,19 @@ class WorldNodeSocket(NodeSocket):
         return (0.2, 0.4, 0.8, 1.0)
 
 
+class ListNodeSocket(NodeSocket):
+    """Socket to pass around lists of datablocks."""
+    bl_idname = 'ListNodeSocketType'
+    bl_label = 'List Socket'
+    items_type: bpy.props.StringProperty(name="Items Type", default="")
+
+    def draw(self, context, layout, node, text):
+        layout.label(text=text)
+
+    def draw_color(self, context, node):
+        return (0.8, 0.8, 0.1, 1.0)
+
+
 def get_socket_value(socket, attribute):
     """Retrieve the value from a socket, considering links."""
     if not socket:

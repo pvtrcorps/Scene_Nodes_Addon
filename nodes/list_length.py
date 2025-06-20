@@ -8,11 +8,11 @@ class NODE_OT_list_length(Node):
     bl_icon = 'ALIGN_JUSTIFY'
 
     def init(self, context):
-        self.inputs.new('NodeSocketString', 'List')
+        self.inputs.new('ListNodeSocketType', 'List')
         self.outputs.new('NodeSocketInt', 'Length')
 
     def update(self):
-        list_str = get_socket_value(self.inputs.get('List'), 'default_value') or ''
-        length = len([it for it in list_str.split(';') if it])
+        items = get_socket_value(self.inputs.get('List'), 'items') or []
+        length = len(items)
         if self.outputs:
             self.outputs['Length'].default_value = length
