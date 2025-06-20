@@ -104,11 +104,8 @@ class ListNodeSocket(NodeSocket):
     bl_label = 'List Socket'
     items_type: bpy.props.StringProperty(name="Items Type", default="")
 
-    def __init__(self):
-        # start with a fresh list so references don't persist across updates
-        self.items = []
-        # visually differentiate list sockets from single datablock sockets
-        self.display_shape = 'SQUARE'
+    # Start with a fresh list so references don't persist across updates.
+    # The square socket shape will be assigned when inputs are created.
 
     def draw(self, context, layout, node, text):
         layout.label(text=text)

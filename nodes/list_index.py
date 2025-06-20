@@ -8,7 +8,8 @@ class NODE_OT_list_index(Node):
     bl_icon = 'LINENUMBERS_ON'
 
     def init(self, context):
-        self.inputs.new('ListNodeSocketType', 'List')
+        sock = self.inputs.new('ListNodeSocketType', 'List')
+        sock.display_shape = 'SQUARE'
         self.inputs.new('NodeSocketInt', 'Index')
         self.outputs.new('SceneNodeSocketType', 'Scene')
         self.outputs.new('ObjectNodeSocketType', 'Object')
