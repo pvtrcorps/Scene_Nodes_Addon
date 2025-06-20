@@ -11,6 +11,11 @@ class NODE_OT_render_scene(Node):
     def init(self, context):
         self.inputs.new('SceneNodeSocketType', "Scene")
 
+    def draw_buttons(self, context, layout):
+        icon = 'RADIOBUT_ON' if self.id_data.active_node_name == self.name else 'RADIOBUT_OFF'
+        op = layout.operator('scene_nodes.execute_to_node', text='', icon=icon, emboss=False)
+        op.node_name = self.name
+
 
 
     def update(self):
