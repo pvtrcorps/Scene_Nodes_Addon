@@ -105,6 +105,8 @@ class ListNodeSocket(NodeSocket):
     items_type: bpy.props.StringProperty(name="Items Type", default="")
 
     def __init__(self):
+        # start with a fresh list so references don't persist across updates
+        self.items = []
         # visually differentiate list sockets from single datablock sockets
         self.display_shape = 'SQUARE'
 

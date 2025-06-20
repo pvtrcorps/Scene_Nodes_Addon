@@ -17,8 +17,9 @@ class NODE_OT_list_find(Node):
         self.outputs.new('NodeSocketInt', 'Index')
 
     def update(self):
-        items = get_socket_value(self.inputs.get('List'), 'items') or []
-        item_type = getattr(self.inputs.get('List'), 'items_type', '')
+        list_socket = self.inputs.get('List')
+        items = get_socket_value(list_socket, 'items')
+        item_type = getattr(list_socket, 'items_type', '')
         name = get_socket_value(self.inputs.get('Name'), 'default_value') or ''
         idx = -1
         item = None

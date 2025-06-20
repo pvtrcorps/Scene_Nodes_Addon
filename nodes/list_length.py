@@ -12,7 +12,7 @@ class NODE_OT_list_length(Node):
         self.outputs.new('NodeSocketInt', 'Length')
 
     def update(self):
-        items = get_socket_value(self.inputs.get('List'), 'items') or []
+        items = get_socket_value(self.inputs.get('List'), 'items')
         length = len(items)
         if self.outputs:
             self.outputs['Length'].default_value = length
