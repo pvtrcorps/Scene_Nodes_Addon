@@ -49,10 +49,7 @@ from bpy.types import Operator
 
 
 def update_node_icons(tree):
-    """Update header icons on all nodes to reflect execution state."""
-    active = getattr(tree, 'active_node_name', '')
-    for node in tree.nodes:
-        node.bl_icon = 'RADIOBUT_ON' if node.name == active else 'RADIOBUT_OFF'
+    """Redraw node editors so execution buttons refresh their icons."""
     for window in bpy.context.window_manager.windows:
         for area in window.screen.areas:
             if area.type == 'NODE_EDITOR':
