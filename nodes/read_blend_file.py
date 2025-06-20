@@ -1,6 +1,8 @@
 import bpy
 from bpy.types import Node
 
+from ..node_tree import get_socket_value
+
 
 class NODE_OT_read_blend_file(Node):
     bl_idname = 'NODE_OT_read_blend_file'
@@ -11,6 +13,8 @@ class NODE_OT_read_blend_file(Node):
 
     def init(self, context):
         self.inputs.new('NodeSocketString', 'File Path')
+        sock = self.inputs.new('ImportTypeNodeSocketType', 'Import Type')
+        sock.import_type = 'APPEND'
         scenes = self.outputs.new('ListNodeSocketType', 'Scenes')
         scenes.display_shape = 'SQUARE'
         scenes.items = []
@@ -74,8 +78,10 @@ class NODE_OT_read_blend_file(Node):
             path = self.filepath
         if not path:
             return
+        import_type = get_socket_value(self.inputs.get('Import Type'), 'import_type') or 'APPEND'
+        link = import_type == 'LINK'
         try:
-            with bpy.data.libraries.load(path, link=False) as (data_from, data_to):
+            with bpy.data.libraries.load(path, link=link) as (data_from, data_to):
                 data_to.scenes = list(data_from.scenes)
                 data_to.objects = list(data_from.objects)
                 data_to.materials = list(data_from.materials)

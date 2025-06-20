@@ -17,7 +17,8 @@ Once enabled, open the *Geometry Node Editor* and switch the tree type to **Scen
 - **Add Collection** — creates a new collection datablock.
 - **Set Material** — assign a material to an object.
 - **Set World** — assign a world to a scene.
-- **Read Blend File** — load datablock names from an external blend file.
+- **Read Blend File** — load datablock names from an external blend file. Choose
+  the import type via its **Import Type** socket (Append or Link).
 - **Input Nodes** — provide basic values (String, Bool, Float, Integer, Vector, Object, Material, World).
 - **List Nodes** — work with semicolon separated string lists (Length, Item by Index, Find Item).
 
