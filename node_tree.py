@@ -5,6 +5,9 @@ class SceneNodeSocket(NodeSocket):
     bl_idname = 'SceneNodeSocketType'
     bl_label = 'Scene Socket'
     # socket color
+    def draw(self, context, layout, node, text):
+        layout.label(text=text)
+
     def draw_color(self, context, node):
         return (0.6, 0.8, 0.2, 1.0)
 
