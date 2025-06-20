@@ -20,6 +20,26 @@ class NODE_OT_read_blend_file(Node):
         layout.prop(self, 'filepath', text="")
 
     def update(self):
+        if self.outputs:
+            collections = {
+                'Scenes': bpy.data.scenes,
+                'Objects': bpy.data.objects,
+                'Materials': bpy.data.materials,
+                'Worlds': bpy.data.worlds,
+            }
+            for name, data in collections.items():
+                sock = self.outputs.get(name)
+                if not sock:
+                    continue
+                items = list(getattr(sock, 'items', []))
+                for datablock in items:
+                    try:
+                        if getattr(datablock, 'users', 0) == 0:
+                            data.remove(datablock)
+                    except Exception:
+                        pass
+                sock.items.clear()
+
         path = None
         path_socket = self.inputs.get('File Path')
         if path_socket:
