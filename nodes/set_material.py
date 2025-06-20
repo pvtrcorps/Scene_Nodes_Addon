@@ -29,10 +29,3 @@ class NODE_OT_set_material(Node):
             self.outputs["Object"].object = obj
         self.node_hash = hash_inputs(obj, mat)
 
-
-def register():
-    bpy.utils.register_class(NODE_OT_set_material)
-
-
-def unregister():
-    bpy.utils.unregister_class(NODE_OT_set_material)

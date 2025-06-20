@@ -56,9 +56,3 @@ class NODE_OT_create_scene(Node):
                 scene.name = name
 
         output.scene = scene
-
-def register():
-    bpy.utils.register_class(NODE_OT_create_scene)
-
-def unregister():
-    bpy.utils.unregister_class(NODE_OT_create_scene)
