@@ -8,7 +8,8 @@ class NODE_OT_list_length(Node):
     bl_icon = 'ALIGN_JUSTIFY'
 
     def init(self, context):
-        self.inputs.new('ListNodeSocketType', 'List')
+        sock = self.inputs.new('ListNodeSocketType', 'List')
+        sock.display_shape = 'SQUARE'
         self.outputs.new('NodeSocketInt', 'Length')
 
     def update(self):

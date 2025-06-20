@@ -8,7 +8,8 @@ class NODE_OT_list_find(Node):
     bl_icon = 'VIEWZOOM'
 
     def init(self, context):
-        self.inputs.new('ListNodeSocketType', 'List')
+        sock = self.inputs.new('ListNodeSocketType', 'List')
+        sock.display_shape = 'SQUARE'
         self.inputs.new('NodeSocketString', 'Name')
         self.outputs.new('SceneNodeSocketType', 'Scene')
         self.outputs.new('ObjectNodeSocketType', 'Object')
