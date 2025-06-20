@@ -11,10 +11,18 @@ class NODE_OT_read_blend_file(Node):
 
     def init(self, context):
         self.inputs.new('NodeSocketString', 'File Path')
-        self.outputs.new('ListNodeSocketType', 'Scenes').display_shape = 'SQUARE'
-        self.outputs.new('ListNodeSocketType', 'Objects').display_shape = 'SQUARE'
-        self.outputs.new('ListNodeSocketType', 'Materials').display_shape = 'SQUARE'
-        self.outputs.new('ListNodeSocketType', 'Worlds').display_shape = 'SQUARE'
+        scenes = self.outputs.new('ListNodeSocketType', 'Scenes')
+        scenes.display_shape = 'SQUARE'
+        scenes.items = []
+        objects = self.outputs.new('ListNodeSocketType', 'Objects')
+        objects.display_shape = 'SQUARE'
+        objects.items = []
+        materials = self.outputs.new('ListNodeSocketType', 'Materials')
+        materials.display_shape = 'SQUARE'
+        materials.items = []
+        worlds = self.outputs.new('ListNodeSocketType', 'Worlds')
+        worlds.display_shape = 'SQUARE'
+        worlds.items = []
 
     def draw_buttons(self, context, layout):
         layout.prop(self, 'filepath', text="")
@@ -31,7 +39,11 @@ class NODE_OT_read_blend_file(Node):
                 sock = self.outputs.get(name)
                 if not sock:
                     continue
-                items = list(getattr(sock, 'items', []))
+                items_attr = getattr(sock, 'items', [])
+                if callable(items_attr):
+                    items = []
+                else:
+                    items = list(items_attr)
                 for datablock in items:
                     try:
                         if getattr(datablock, 'users', 0) == 0:
