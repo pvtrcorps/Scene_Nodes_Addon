@@ -15,9 +15,7 @@ class NODE_OT_add_collection(Node):
         self.outputs.new('CollectionNodeSocketType', "Collection")
 
     def draw_buttons(self, context, layout):
-        icon = 'RADIOBUT_ON' if self.id_data.active_node_name == self.name else 'RADIOBUT_OFF'
-        op = layout.operator('scene_nodes.execute_to_node', text='', icon=icon, emboss=False)
-        op.node_name = self.name
+        pass
 
     def update(self):
         tree = self.id_data

@@ -16,9 +16,6 @@ class NODE_OT_create_scene(Node):
 
     def draw_buttons(self, context, layout):
         layout.prop(self, 'scene_name', text="")
-        icon = 'RADIOBUT_ON' if self.id_data.active_node_name == self.name else 'RADIOBUT_OFF'
-        op = layout.operator('scene_nodes.execute_to_node', text='', icon=icon, emboss=False)
-        op.node_name = self.name
 
 
 

@@ -33,6 +33,11 @@ class SceneNodeSocket(NodeSocket):
     # socket color
     def draw(self, context, layout, node, text):
         layout.label(text=text)
+        if self.is_output and (hasattr(node, 'update') or hasattr(node, 'evaluate')):
+            tree = node.id_data
+            icon = 'RADIOBUT_ON' if getattr(tree, 'active_node_name', '') == node.name else 'RADIOBUT_OFF'
+            op = layout.operator('scene_nodes.execute_to_node', text='', icon=icon, emboss=False)
+            op.node_name = node.name
 
     def draw_color(self, context, node):
         return (0.6, 0.8, 0.2, 1.0)
