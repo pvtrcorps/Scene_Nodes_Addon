@@ -21,8 +21,22 @@ Once enabled, open the *Geometry Node Editor* and switch the tree type to **Scen
   the import type via its **Import Type** socket (Append or Link).
 - **Input Nodes** — provide basic values (String, Bool, Float, Integer, Vector, Object, Material, World).
 - **List Nodes** — work with semicolon separated string lists (Length, Item by Index, Find Item).
+- **Group Input** — exposes the current scene and `.blend` file path for use in the tree.
+- **Group Output** — final node collecting outputs. Branches wired to its **File** socket are executed.
 
 These nodes are registered under the *Scene Nodes* category.
+
+Only nodes connected to the **File** input of the **Group Output** are evaluated when the tree runs. This lets you create side branches without executing them.
+
+#### Example
+
+```
+[Group Input] -- Scene --> [Create Scene] --> [Render Scene] -- Scene --> [Group Output]
+    |                                                          
+    +----------- File --------------------> [Group Output]
+```
+
+The link from **Group Input** to the output's **File** socket ensures that the create/render chain above is executed.
 
 ### Manual Execution
 
