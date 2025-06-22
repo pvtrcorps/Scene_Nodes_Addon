@@ -201,6 +201,7 @@ class SCENE_NODES_TREE(NodeTree):
 
     active_node_name: bpy.props.StringProperty(name="Active Node", default="")
     dynamic_scene: _new_scene_property()
+    start_scene: _new_scene_property()
     is_executing: bpy.props.BoolProperty(default=False, options={'HIDDEN'})
 
     @classmethod

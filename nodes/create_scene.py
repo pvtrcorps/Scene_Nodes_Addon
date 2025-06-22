@@ -1,7 +1,7 @@
 import bpy
 from bpy.types import Node
 
-from ..node_tree import SceneNodeSocket
+from ..node_tree import SceneNodeSocket, get_socket_value, hash_inputs
 
 class NODE_OT_create_scene(Node):
     bl_idname = 'NODE_OT_create_scene'
@@ -11,6 +11,7 @@ class NODE_OT_create_scene(Node):
     scene_name: bpy.props.StringProperty(name="Scene Name", default="")
 
     def init(self, context):
+        self.inputs.new('SceneNodeSocketType', "Scene")
         self.inputs.new('NodeSocketString', "Name")
         self.outputs.new('SceneNodeSocketType', "Scene")
 
@@ -26,6 +27,12 @@ class NODE_OT_create_scene(Node):
 
         output = self.outputs.get("Scene")
         if not output:
+            return
+
+        input_scene = get_socket_value(self.inputs.get("Scene"), 'scene')
+        if input_scene:
+            output.scene = input_scene
+            self.node_hash = hash_inputs(input_scene)
             return
 
         scene = getattr(tree, "dynamic_scene", None)
@@ -59,3 +66,4 @@ class NODE_OT_create_scene(Node):
                 scene.name = name
 
         output.scene = scene
+        self.node_hash = hash_inputs(scene, name)

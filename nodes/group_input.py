@@ -15,6 +15,7 @@ class NODE_OT_group_input(Node):
         scene_out = self.outputs.get('Scene')
         file_out = self.outputs.get('File')
         if scene_out:
-            scene_out.scene = bpy.context.scene
+            tree = self.id_data
+            scene_out.scene = getattr(tree, 'start_scene', bpy.context.scene)
         if file_out:
             file_out.filepath = bpy.data.filepath

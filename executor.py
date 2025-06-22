@@ -50,6 +50,8 @@ class NodeExecutor:
     def execute_until(self, target_node=None):
         """Execute nodes in topological order up to ``target_node``."""
         tree = self.node_tree
+        import bpy
+        tree.start_scene = bpy.context.scene
         tree.is_executing = True
         try:
             order = self._topological_order()
