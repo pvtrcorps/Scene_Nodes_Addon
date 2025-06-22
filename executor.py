@@ -3,11 +3,30 @@ class NodeExecutor:
     def __init__(self, node_tree):
         self.node_tree = node_tree
 
+    def _reachable_nodes(self):
+        """Return nodes contributing to the Group Output node."""
+        outputs = [n for n in self.node_tree.nodes if n.bl_idname == 'NODE_OT_group_output']
+        reachable = set(outputs)
+        stack = list(outputs)
+
+        while stack:
+            node = stack.pop()
+            for socket in node.inputs:
+                for link in socket.links:
+                    prev = link.from_node
+                    if prev not in reachable:
+                        reachable.add(prev)
+                        stack.append(prev)
+
+        return reachable
+
     def _build_graph(self):
-        graph = {node: set() for node in self.node_tree.nodes}
+        nodes = self._reachable_nodes()
+        graph = {node: set() for node in nodes}
         for link in self.node_tree.links:
-            graph.setdefault(link.from_node, set()).add(link.to_node)
-            graph.setdefault(link.to_node, set())
+            if link.from_node in nodes and link.to_node in nodes:
+                graph.setdefault(link.from_node, set()).add(link.to_node)
+                graph.setdefault(link.to_node, set())
         return graph
 
     def _topological_order(self):
@@ -16,6 +35,7 @@ class NodeExecutor:
         for frm, targets in graph.items():
             for tgt in targets:
                 indegree[tgt] += 1
+
         queue = [n for n, d in indegree.items() if d == 0]
         order = []
         while queue:
@@ -33,6 +53,8 @@ class NodeExecutor:
         tree.is_executing = True
         try:
             order = self._topological_order()
+            if target_node and target_node not in order:
+                return
             for node in order:
                 if hasattr(node, 'evaluate'):
                     node.evaluate()
