@@ -26,6 +26,11 @@ def _new_world_property():
     """Pointer property for storing a Blender World."""
     return bpy.props.PointerProperty(name="World", type=bpy.types.World)
 
+
+class IDItem(bpy.types.PropertyGroup):
+    """Collection item storing a reference to any ID datablock."""
+    id: bpy.props.PointerProperty(type=bpy.types.ID)
+
 class SceneNodeSocket(NodeSocket):
     bl_idname = 'SceneNodeSocketType'
     bl_label = 'Scene Socket'
@@ -108,8 +113,8 @@ class ListNodeSocket(NodeSocket):
     bl_idname = 'ListNodeSocketType'
     bl_label = 'List Socket'
     items_type: bpy.props.StringProperty(name="Items Type", default="")
+    items: bpy.props.CollectionProperty(type=IDItem)
 
-    # Start with a fresh list so references don't persist across updates.
     # The square socket shape will be assigned when inputs are created.
 
     def draw(self, context, layout, node, text):

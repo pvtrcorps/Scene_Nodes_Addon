@@ -17,6 +17,7 @@ from nodeitems_utils import (
     unregister_node_categories,
 )
 from .node_tree import (
+    IDItem,
     SceneNodeSocket,
     CollectionNodeSocket,
     ObjectNodeSocket,
@@ -48,6 +49,7 @@ from .executor import SCENE_OT_execute_to_node
 from .handlers import register_handlers, unregister_handlers
 
 classes = (
+    IDItem,
     SceneNodeSocket,
     CollectionNodeSocket,
     ObjectNodeSocket,

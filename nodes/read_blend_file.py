@@ -17,16 +17,12 @@ class NODE_OT_read_blend_file(Node):
         sock.import_type = 'APPEND'
         scenes = self.outputs.new('ListNodeSocketType', 'Scenes')
         scenes.display_shape = 'SQUARE'
-        scenes.items = []
         objects = self.outputs.new('ListNodeSocketType', 'Objects')
         objects.display_shape = 'SQUARE'
-        objects.items = []
         materials = self.outputs.new('ListNodeSocketType', 'Materials')
         materials.display_shape = 'SQUARE'
-        materials.items = []
         worlds = self.outputs.new('ListNodeSocketType', 'Worlds')
         worlds.display_shape = 'SQUARE'
-        worlds.items = []
 
     def draw_buttons(self, context, layout):
         layout.prop(self, 'filepath', text="")
@@ -47,21 +43,14 @@ class NODE_OT_read_blend_file(Node):
                 sock = self.outputs.get(name)
                 if not sock:
                     continue
-                items_attr = getattr(sock, 'items', [])
-                if callable(items_attr):
-                    items = []
-                else:
-                    items = list(items_attr)
-                for datablock in items:
+                for item in list(sock.items):
+                    datablock = item.id
                     try:
                         if getattr(datablock, 'users', 0) == 0:
                             data.remove(datablock)
                     except Exception:
                         pass
-                if isinstance(items_attr, list):
-                    items_attr.clear()
-                else:
-                    sock.items = []
+                sock.items.clear()
 
         path = None
         path_socket = self.inputs.get('File Path')
@@ -94,11 +83,20 @@ class NODE_OT_read_blend_file(Node):
             scenes = objects = materials = worlds = []
         if self.outputs:
             out = self.outputs
-            out['Scenes'].items = scenes
-            out['Scenes'].items_type = 'SCENE'
-            out['Objects'].items = objects
-            out['Objects'].items_type = 'OBJECT'
-            out['Materials'].items = materials
-            out['Materials'].items_type = 'MATERIAL'
-            out['Worlds'].items = worlds
-            out['Worlds'].items_type = 'WORLD'
+            mapping = {
+                'Scenes': (scenes, 'SCENE'),
+                'Objects': (objects, 'OBJECT'),
+                'Materials': (materials, 'MATERIAL'),
+                'Worlds': (worlds, 'WORLD'),
+            }
+            for name, (items, typ) in mapping.items():
+                sock = out.get(name)
+                if not sock:
+                    continue
+                sock.items.clear()
+                for datablock in items:
+                    item = sock.items.add()
+                    item.id = datablock
+                sock.items_type = typ
+                for link in sock.links:
+                    link.to_node.update()
