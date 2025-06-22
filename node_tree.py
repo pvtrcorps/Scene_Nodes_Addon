@@ -152,6 +152,20 @@ class ImportTypeNodeSocket(NodeSocket):
         return (0.5, 0.5, 0.8, 1.0)
 
 
+class FileNodeSocket(NodeSocket):
+    """Socket holding a path to a .blend file."""
+    bl_idname = 'FileNodeSocketType'
+    bl_label = 'File Socket'
+
+    filepath: bpy.props.StringProperty(name="File Path", subtype='FILE_PATH')
+
+    def draw(self, context, layout, node, text):
+        layout.label(text=text)
+
+    def draw_color(self, context, node):
+        return (0.6, 0.6, 0.6, 1.0)
+
+
 def get_socket_value(socket, attribute):
     """Retrieve the value from a socket, considering links."""
     if not socket:
