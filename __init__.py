@@ -26,6 +26,7 @@ from .node_tree import (
     WorldNodeSocket,
     ListNodeSocket,
     ImportTypeNodeSocket,
+    FileNodeSocket,
     SCENE_NODES_TREE,
 )
 from .nodes.create_scene import NODE_OT_create_scene
@@ -45,6 +46,8 @@ from .nodes.read_blend_file import NODE_OT_read_blend_file
 from .nodes.list_index import NODE_OT_list_index
 from .nodes.list_find import NODE_OT_list_find
 from .nodes.list_length import NODE_OT_list_length
+from .nodes.group_input import NODE_OT_group_input
+from .nodes.group_output import NODE_OT_group_output
 from .executor import SCENE_OT_execute_to_node
 from .handlers import register_handlers, unregister_handlers
 
@@ -58,6 +61,7 @@ classes = (
     WorldNodeSocket,
     ListNodeSocket,
     ImportTypeNodeSocket,
+    FileNodeSocket,
     SCENE_NODES_TREE,
     NODE_OT_create_scene,
     NODE_OT_render_scene,
@@ -76,6 +80,8 @@ classes = (
     NODE_OT_list_index,
     NODE_OT_list_find,
     NODE_OT_list_length,
+    NODE_OT_group_input,
+    NODE_OT_group_output,
     SCENE_OT_execute_to_node,
 )
 
@@ -104,6 +110,8 @@ node_categories = [
         NodeItem(NODE_OT_list_index.bl_idname),
         NodeItem(NODE_OT_list_find.bl_idname),
         NodeItem(NODE_OT_list_length.bl_idname),
+        NodeItem(NODE_OT_group_input.bl_idname),
+        NodeItem(NODE_OT_group_output.bl_idname),
     ]),
 ]
 
